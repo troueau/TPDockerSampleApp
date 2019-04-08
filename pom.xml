@@ -109,7 +109,11 @@
 
 	<build>
 	    <finalName>fatjar-${project.version}</finalName>
-	
+	  <resources>
+     <resource>
+       <directory>src/main/</directory>
+     </resource>
+   </resources>
 		<plugins>
 			<!-- * Start of user code for plugins -->
 			<plugin>

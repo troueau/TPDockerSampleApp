@@ -7,7 +7,7 @@ Le but de ce TP est de regarder comment nous pouvons utiliser docker pour facili
 
 <!--more-->
 
-### Etape -1: Docker###
+### Etape -1: Docker
 
 Si vous utilisez une machine perso, installez docker (voir [ici](http://olivier.barais.fr/blog/posts/teaching/istic/m2/french/2018/09/10/Operation_portable_M2_ISTIC.html))
 
