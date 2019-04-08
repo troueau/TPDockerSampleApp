@@ -100,9 +100,9 @@ modifiez votre fichier /etc/hosts pour faire correspondre myapp.mdi.fr vers 127.
 Pour ceux qui n'ont pas les droits root
 
 ```bash
-echo 'myapp.mdi.fr 127.0.0.1' >> ~/.hosts
+echo 'm 127.0.0.1' >> ~/.hosts
 export HOSTALIASES=~/.hosts
-curl myapp.mdi.fr:8080
+curl m:8080
 ```
 
 
@@ -110,14 +110,14 @@ curl myapp.mdi.fr:8080
 Vous devez avoir une ligne qui ressemble à cela. 
 
 ```txt
-127.0.0.1	localhost localhost.localdomain localhost4 localhost4.localdomain myapp.mdi.fr
+127.0.0.1	localhost localhost.localdomain localhost4 localhost4.localdomain m
 ```
 
 Puis créer n fenètre dans votre navigateur terminator (clic droit puis split horizontal ou vertical). 
 Dans ces terminales, lancez la commande suivante pour tester votre resolve proxy.
 
 ```bash
-docker run -e VIRTUAL_HOST=myapp.mdi.fr -t -i  nginx
+docker run -e VIRTUAL_HOST=m -t -i  nginx
 ```
 
 En tapant la commande suivante, vous pouvez regarder le fichier de configuration nginx qui sera généré à l'adresse suivante /etc/nginx/conf.d/default.conf. (N'oubliez pas de remplacer  865c1e67a00e par l'id de votre nginx en resolve proxy ($docker ps) pour récupérer la liste des containers en cours d'exécution.
