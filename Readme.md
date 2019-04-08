@@ -95,7 +95,17 @@ sudo terminator
 ```
 
 
-modifiez votre fichier /etc/hosts pour faire correspondre myapp.taa.fr vers 127.0.0.1. Ce serait à faire sur votre gestionnaire de nom de domaine en temps normal.
+modifiez votre fichier /etc/hosts pour faire correspondre myapp.mdi.fr vers 127.0.0.1. Ce serait à faire sur votre gestionnaire de nom de domaine en temps normal.
+
+Pour ceux qui n'ont pas les droits root
+
+```bash
+echo 'myapp.mdi.fr 127.0.0.1' >> ~/.hosts
+export HOSTALIASES=~/.hosts
+curl myapp.mdi.fr:8080
+```
+
+
 
 Vous devez avoir une ligne qui ressemble à cela. 
 
