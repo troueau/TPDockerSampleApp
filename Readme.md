@@ -95,7 +95,7 @@ sudo terminator
 ```
 
 
-modifiez votre fichier /etc/hosts pour faire correspondre myapp.mdi.fr vers 127.0.0.1. Ce serait à faire sur votre gestionnaire de nom de domaine en temps normal.
+modifiez votre fichier /etc/hosts pour faire correspondre **m** vers 127.0.0.1. Ce serait à faire sur votre gestionnaire de nom de domaine en temps normal.
 
 Pour ceux qui n'ont pas les droits root
 
