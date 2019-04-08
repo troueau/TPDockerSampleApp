@@ -100,7 +100,7 @@ modifiez votre fichier /etc/hosts pour faire correspondre **m** vers 127.0.0.1. 
 Pour ceux qui n'ont pas les droits root
 
 ```bash
-echo 'm 127.0.0.1' >> ~/.hosts
+echo 'm localhost' >> ~/.hosts
 export HOSTALIASES=~/.hosts
 curl m:8080
 ```
