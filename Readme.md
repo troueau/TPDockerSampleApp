@@ -82,7 +82,7 @@ docker run -d -p 8080:80 -v /var/run/docker.sock:/tmp/docker.sock -t jwilder/ngi
 ```
 
 
-Dans le suite nous allons utiliser terminator pour visualiser les effets du load-balancing. 
+Dans le suite nous allons utiliser terminator pour visualiser les effets du load-balancing (uniquement pour ceux qui sont sur leur propre portable). 
 
 ```bash
 apt-get install terminator
@@ -95,9 +95,16 @@ sudo terminator
 ```
 
 
-modifiez votre fichier /etc/hosts pour faire correspondre **m** vers 127.0.0.1. Ce serait à faire sur votre gestionnaire de nom de domaine en temps normal.
+Si vous êtes sur votre propre portable, modifiez votre fichier /etc/hosts pour faire correspondre **m** vers localhost. Ce serait à faire sur votre gestionnaire de nom de domaine en temps normal.
 
-Pour ceux qui n'ont pas les droits root
+Vous devez avoir une ligne qui ressemble à cela. 
+
+```txt
+127.0.0.1	localhost localhost.localdomain localhost4 localhost4.localdomain m
+```
+
+
+Pour ceux qui n'ont pas les droits root, exécutez les commandes suivantes
 
 ```bash
 echo 'm localhost' >> ~/.hosts
@@ -106,13 +113,6 @@ curl m:8080
 ```
 
 
-
-Vous devez avoir une ligne qui ressemble à cela. 
-
-```txt
-127.0.0.1	localhost localhost.localdomain localhost4 localhost4.localdomain m
-```
-
 Puis créer n fenètre dans votre navigateur terminator (clic droit puis split horizontal ou vertical). 
 Dans ces terminales, lancez la commande suivante pour tester votre resolve proxy.
 
@@ -120,11 +120,19 @@ Dans ces terminales, lancez la commande suivante pour tester votre resolve proxy
 docker run -e VIRTUAL_HOST=m -t -i  nginx
 ```
 
+Testez votre resolv proxy en lançant la commande suivante. 
+
+```bash
+curl m:8080
+```
+
+
 En tapant la commande suivante, vous pouvez regarder le fichier de configuration nginx qui sera généré à l'adresse suivante /etc/nginx/conf.d/default.conf. (N'oubliez pas de remplacer  865c1e67a00e par l'id de votre nginx en resolve proxy ($docker ps) pour récupérer la liste des containers en cours d'exécution.
 
 ```bash
 docker exec -it 865c1e67a00e bash
 ```
+barais@kevtop2:/media/barais/ed91608b-85b0-46e5-919c-ade3798e6dd6/home/barais/workspaces/tps/projetESIR$ ls
 
 - [source](http://jasonwilder.com/blog/2014/03/25/automated-nginx-reverse-proxy-for-docker/)
 
@@ -135,10 +143,6 @@ Tuez tous les dockers nginx démarrer.
 docker ps #pour avoir la liste
 docker kill "IDDOCKER" #pour tuer un docker. 
 ```
-
-
-
-
 
 ### Etape 2: Utilisation de docker compose
 Utilisez docker compose pour déployer votre vos 4 services nginx et votre loadbalancer. 
@@ -170,7 +174,7 @@ https://advancedweb.hu/2016/03/01/opencv_ubuntu/
 N'oubliez pas d'installer ant au sein de votre image docker ainsi que la jvm et maven. 
 
 
-Nous souhaitons faire en sorte de fournir une image docker finale la plus petite possible. 
+Nous souhaitons faire en sorte de fournir une image docker finale la plus petite possible. (Un paquet de carambar à la plus petite image fonctionnelle)
 
 Fournissez donc deux fichiers docker file, un premier pour construire l'image qui permet de compiler opencv et compiler votre application. Un deuxième qui permet de construire l'image minimale pour votre application. 
 
