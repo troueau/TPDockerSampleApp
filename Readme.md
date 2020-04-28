@@ -252,15 +252,15 @@ Si l'on voulait vraiment être reproductible, vous auriez besoin de construire o
 
 https://github.com/opencv/opencv
 
-Tester le lancement de cette image. 
-
 Vous pourrez utiliser cette documentation pour la compilation d'opencv sur ubuntu.
 
 https://advancedweb.hu/2016/03/01/opencv_ubuntu/
 
+j'ai mis un exemple de dockerfile pour batir opencv dans le repository
+
 N'oubliez pas d'installer ant au sein de votre image docker ainsi que la jvm et maven. 
 
-Nous souhaitons faire en sorte de fournir une image docker finale la plus petite possible. (Un paquet de carambar à la plus petite image fonctionnelle)
+Nous souhaitons faire en sorte de fournir une image docker finale la plus petite possible. (Un paquet de carambar à la plus petite image fonctionnelle ;). Besoin d'utiliser alpine pour créer opencv pour Java et builder le fatjar de ce projet puis besoin de créer un runtime avec juste le fatjar de l'appli la libopencv et ses dépendances.
 
 Fournissez donc deux fichiers docker file, un premier pour construire l'image qui permet de compiler opencv et compiler votre application. Un deuxième qui permet de construire l'image minimale pour votre application. 
 
