@@ -3,9 +3,8 @@ package main;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
+import java.io.IOException; 
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
@@ -23,7 +22,7 @@ import org.opencv.objdetect.CascadeClassifier;
 public class Main {
 
     private static final String TROLL_IMAGE = "trollface.jpg";
-    private static final String OPENCV_HAARCASCADES_HOME = "/home/barais/git/opencv/data/haarcascades/";
+    private static final String OPENCV_HAARCASCADES_HOME = "./haarcascades/";
 
 
     
