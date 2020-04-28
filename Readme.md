@@ -214,10 +214,43 @@ https://github.com/barais/ESIRTPDockerSampleApp (Une documentation pour compiler
 
 Construisez le fichier docker file permettant de créer l'image docker pour cette application. 
 
-Vous aurez besoin de construire open cv depuis les src (principalement depuis la version 3.4)
+
+Je vous fournis une version compilé de la librairie opencv (en 64 bit) et du jar d'opencv. 
+Pour faire tourner votre application. Installer le jar d'open CV.
+
+Pour faire tourner dans kadacoda
+```bash
+apt-get update
+apt-get install -y openjdk-8-jdk
+apt-get install -y maven
+apt-get install -f libpng16-16
+apt-get install -f libjasper1
+apt-get install -f libdc1394-22
+```
+
+```bash
+     mvn install:install-file -Dfile=./lib/opencv-3410.jar \
+     -DgroupId=org.opencv  -DartifactId=opencv -Dversion=3.4.10 -Dpackaging=jar
+```
+
+Lancez cette application.
+
+```bash
+ mvn package
+     java -Djava.library.path=lib/ -jar target/fatjar-0.0.1-SNAPSHOT.jar
+```
+
+Construisez un fichier dockerfile permettant de créer une image docker permettant de lancer cette application. 
+Vous aurez besoin d'ajoutez le répertoire *lib* et le répertoire *haarcascades* à votre image. 
+
+Nous souhaitons faire en sorte de fournir une image docker finale la plus petite possible. (Un paquet de carambar à la plus petite image fonctionnelle)
+
+
+**Version longue (non obligatoire)**
+
+Si l'on voulait vraiment être reproductible, vous auriez besoin de construire open cv depuis les src (principalement depuis la version 3.4)
 
 https://github.com/opencv/opencv
-
 
 Tester le lancement de cette image. 
 
@@ -227,14 +260,13 @@ https://advancedweb.hu/2016/03/01/opencv_ubuntu/
 
 N'oubliez pas d'installer ant au sein de votre image docker ainsi que la jvm et maven. 
 
-
 Nous souhaitons faire en sorte de fournir une image docker finale la plus petite possible. (Un paquet de carambar à la plus petite image fonctionnelle)
 
 Fournissez donc deux fichiers docker file, un premier pour construire l'image qui permet de compiler opencv et compiler votre application. Un deuxième qui permet de construire l'image minimale pour votre application. 
 
 ### Etape 4: Dockeriser une application existante
 
-Fournir un docker file qui permet de mettre en place une application avec 4 instance de votre serveur Web. 
+Fournir un docker compose qui permet de mettre en place une application avec 4 instances de votre serveur Web. 
 
 
 ### Etape 5: Dockeriser une application existante
@@ -263,7 +295,7 @@ OpenCV is a native library with Java bindings so you need to install this to you
 There are good instructions how to build OpenCV with Java bindings for your own platform here: http://docs.opencv.org/doc/tutorials/introduction/desktop_java/java_dev_intro.html
 
 Once you have built the Java library you can install the resulting jar file to your local Maven repository using
-     mvn install:install-file -Dfile=./bin/opencv-346.jar \
+     mvn install:install-file -Dfile=./lib/opencv-346.jar \
      -DgroupId=org.opencv  -DartifactId=opencv -Dversion=3.4.6 -Dpackaging=jar
 
 
@@ -274,10 +306,10 @@ Once OpenCV jar library is available as a local Maven dependency, you can clone 
 
      mvn install
 
-And run the application using the embedded Jetty plugin in http://localhost:8888
+And run the application using the embedded Jetty plugin in http://localhost:8080
 
      mvn package
-     java -Djava.library.path=/home/barais/git/opencv/build/lib/ -jar target/fatjar-0.0.1-SNAPSHOT.jar
+     java -Djava.library.path=lib/ -jar target/fatjar-0.0.1-SNAPSHOT.jar
 	# Do not forget to update the path to your opencv install in Main.java
 	# You can change the image trollface ;)
 
