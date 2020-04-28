@@ -287,7 +287,7 @@ And run the application using the embedded Jetty plugin in http://localhost:8888
 If you fork this repo, to be up to date. 
 
 ```sh
-git remote add upstream https://github.com/barais/projetWE
+git remote add upstream https://github.com/barais/ESIRTPDockerSampleApp
 git fetch upstream
 git checkout master
 git merge upstream/master
