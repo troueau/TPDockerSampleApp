@@ -246,6 +246,8 @@ Lancez cette application.
       mvn package
      # Pour lancer l'application
      java -Djava.library.path=lib/ -jar target/fatjar-0.0.1-SNAPSHOT.jar
+     ## Si vous avez une version récente, il se peut qu'il faille utiliser, si aucune des deux versions ne marchent, recompiler opencv ou faites la tourner dans un container avec une image de docker *ubuntu:16.04*
+     java -Djava.library.path=lib/ubuntuupperthan18/ -jar target/fatjar-0.0.1-SNAPSHOT.jar
 ```
 
 Dans katacoda, sélectionnez sur le symbole **+** (création d'un nouveau terminal), *select port to view on client 1ù. Sélectionnez le port 8080. 
