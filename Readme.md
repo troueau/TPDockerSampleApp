@@ -13,7 +13,7 @@ Si vous utilisez une machine perso, installez docker (voir [ici](http://olivier.
 
 
 
-### Etape 0: Test de votre installation ###
+### Etape 0: Test de votre installation (peut etre passé si vous utiliser Katacoda)###
 
 ```bash
 docker run hello-world
@@ -68,7 +68,7 @@ Le container vient avec sa propre interface réseau.
 
 
 
-### Etape 1: Jouons avec docker: mise en place d'un load balancer et d'un reverse proxy avec docker et nginx
+### Etape 1 (si vous utilisez docker sur votre machine ou à l'ISTIC): Jouons avec docker: mise en place d'un load balancer et d'un reverse proxy avec docker et nginx
 
 Pour le nginx en resolproxy nous allons partir de l'image [suivante](https://github.com/jwilder/nginx-proxy)
 
@@ -132,7 +132,6 @@ En tapant la commande suivante, vous pouvez regarder le fichier de configuration
 ```bash
 docker exec -it 865c1e67a00e bash
 ```
-barais@kevtop2:/media/barais/ed91608b-85b0-46e5-919c-ade3798e6dd6/home/barais/workspaces/tps/projetESIR$ ls
 
 - [source](http://jasonwilder.com/blog/2014/03/25/automated-nginx-reverse-proxy-for-docker/)
 
@@ -144,10 +143,65 @@ docker ps #pour avoir la liste
 docker kill "IDDOCKER" #pour tuer un docker. 
 ```
 
+### Etape 1 (si vous utilisez KATAcoda): Jouons avec docker: mise en place d'un load balancer et d'un reverse proxy avec docker et nginx
+
+Pour le nginx en resolproxy nous allons partir de l'image [suivante](https://github.com/jwilder/nginx-proxy)
+
+L'explication du fonctionnement est disponible [ici](http://jasonwilder.com/blog/2014/03/25/automated-nginx-reverse-proxy-for-docker/). 
+
+
+Lancement de nginx en resolvproxy
+
+```bash
+docker run -d -p 8080:80 -v /var/run/docker.sock:/tmp/docker.sock -t jwilder/nginx-proxy 
+```
+
+
+Lancez ensuite view port (fenètre de gauche) une url qui ressemble à (https://2886795287-frugo01.environments.katacoda.com)
+
+Sélectionnez le port 8080.
+
+
+Puis créer n terminal dans votre katacode . 
+Dans ces terminales, lancez la commande suivante pour tester votre resolve proxy.
+
+```bash
+# remplacer la variable virtual host en fonction de l'URL fournit par dakota quand vous avez ouvert le *viewport*
+docker run -e VIRTUAL_HOST=2886795287-8080-frugo01.environments.katacoda.com -t -i  nginx
+```
+
+
+
+Testez votre resolv proxy en lançant la commande suivante. 
+
+```bash
+curl 2886795287-8080-frugo01.environments.katacoda.com:8080
+```
+
+ou dans votre navigateur
+https://2886795287-8080-frugo01.environments.katacoda.com/
+
+
+En tapant la commande suivante, vous pouvez regarder le fichier de configuration nginx qui sera généré à l'adresse suivante /etc/nginx/conf.d/default.conf. (N'oubliez pas de remplacer  865c1e67a00e par l'id de votre nginx en resolve proxy ($docker ps) pour récupérer la liste des containers en cours d'exécution.
+
+```bash
+docker exec -it 865c1e67a00e bash
+```
+
+- [source](http://jasonwilder.com/blog/2014/03/25/automated-nginx-reverse-proxy-for-docker/)
+
+
+Tuez tous les dockers nginx démarrer. 
+
+```bash
+docker ps #pour avoir la liste
+docker kill "IDDOCKER" #pour tuer un docker. 
+```
+
+
+
 ### Etape 2: Utilisation de docker compose
 Utilisez docker compose pour déployer votre vos 4 services nginx et votre loadbalancer. 
-
-[tutoriel](https://docs.docker.com/get-started/part3/)
 
 
 ### Etape 3: Dockeriser une application existante
