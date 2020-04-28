@@ -1,4 +1,4 @@
-# Projet ESIR MDI Docker
+# Projet Docker
 
 Hello très chers étudiants,
 
@@ -210,13 +210,15 @@ Nous souhaitons partir d'une application Web de détection de visage.
 
 Src dans ce repository
 
-https://github.com/barais/ESIRTPDockerSampleApp (Une documentation pour compiler et lancer cette application est disponible à la fin de ce README.
+https://github.com/barais/TPDockerSampleApp (Une documentation pour compiler et lancer cette application est disponible à la fin de ce README.
 
 Construisez le fichier docker file permettant de créer l'image docker pour cette application. 
 
 
 Je vous fournis une version compilé de la librairie opencv (en 64 bit) et du jar d'opencv. 
-Pour faire tourner votre application. Installer le jar d'open CV.
+Pour faire tourner votre application, il faudra installer le jar d'open CV dans votre repo local maven. (voir ci-après)
+
+Testons cette application. Tout d'abord installons les dépendances nécessaire. 
 
 Pour faire tourner dans kadacoda
 ```bash
@@ -228,7 +230,11 @@ apt-get install -f libjasper1
 apt-get install -f libdc1394-22
 ```
 
+Puis clonons le repo, vous pouvez faire un fork avant si vous souhaitez modifier l'application. 
+
 ```bash
+git clone https://github.com/barais/TPDockerSampleApp
+cd TPDockerSampleApp
      mvn install:install-file -Dfile=./lib/opencv-3410.jar \
      -DgroupId=org.opencv  -DartifactId=opencv -Dversion=3.4.10 -Dpackaging=jar
 ```
@@ -236,11 +242,20 @@ apt-get install -f libdc1394-22
 Lancez cette application.
 
 ```bash
- mvn package
+     # Pour compiler
+      mvn package
+     # Pour lancer l'application
      java -Djava.library.path=lib/ -jar target/fatjar-0.0.1-SNAPSHOT.jar
 ```
 
-Construisez un fichier dockerfile permettant de créer une image docker permettant de lancer cette application. 
+Dans katacoda, sélectionnez sur le symbole **+** (création d'un nouveau terminal), *select port to view on client 1ù. Sélectionnez le port 8080. 
+
+Voici votre application. 
+
+Si vous tournez localement http://localhost:8080
+
+
+**TRAVAIL A FAIRE** Construisez un fichier dockerfile permettant de créer une image docker permettant de lancer cette application. 
 Vous aurez besoin d'ajoutez le répertoire *lib* et le répertoire *haarcascades* à votre image. 
 
 Nous souhaitons faire en sorte de fournir une image docker finale la plus petite possible. (Un paquet de carambar à la plus petite image fonctionnelle)
@@ -289,29 +304,33 @@ This application was inspired by the ingenious ["Trollator" mobile Android appli
 1. OpenCV Installation for local Maven repository
 ---
 OpenCV is a native library with Java bindings so you need to install this to your system.
- - *libopencv_java346.so* installed in you java.library.path (
- - *opencv-346.jar* availble for application
+ - *libopencv_java3410.so* installed in you java.library.path (
+ - *opencv-3410.jar* availble for application
 
 There are good instructions how to build OpenCV with Java bindings for your own platform here: http://docs.opencv.org/doc/tutorials/introduction/desktop_java/java_dev_intro.html
 
 Once you have built the Java library you can install the resulting jar file to your local Maven repository using
-     mvn install:install-file -Dfile=./lib/opencv-346.jar \
-     -DgroupId=org.opencv  -DartifactId=opencv -Dversion=3.4.6 -Dpackaging=jar
+     mvn install:install-file -Dfile=./lib/opencv-3410.jar \
+     -DgroupId=org.opencv  -DartifactId=opencv -Dversion=3.4.10 -Dpackaging=jar
 
 
 2. Building this application
 ----
 Once OpenCV jar library is available as a local Maven dependency, you can clone and build this application simply using Git and Maven:
 
-
+```bash
      mvn install
+```
 
 And run the application using the embedded Jetty plugin in http://localhost:8080
 
+```bash
      mvn package
+
      java -Djava.library.path=lib/ -jar target/fatjar-0.0.1-SNAPSHOT.jar
 	# Do not forget to update the path to your opencv install in Main.java
 	# You can change the image trollface ;)
+```
 
 # Fork this repo
 
@@ -319,7 +338,7 @@ And run the application using the embedded Jetty plugin in http://localhost:8080
 If you fork this repo, to be up to date. 
 
 ```sh
-git remote add upstream https://github.com/barais/ESIRTPDockerSampleApp
+git remote add upstream https://github.com/barais/TPDockerSampleApp
 git fetch upstream
 git checkout master
 git merge upstream/master
