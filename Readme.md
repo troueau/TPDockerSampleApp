@@ -286,11 +286,6 @@ Fournissez donc deux fichiers docker file, un premier pour construire l'image qu
 Fournir un docker compose qui permet de mettre en place une application avec 4 instances de votre serveur Web. 
 
 
-### Etape 5: Dockeriser une application existante
-
-En utilisant [https://labs.play-with-k8s.com/](https://labs.play-with-k8s.com/), déployer votre service à l'aide de kubernetes. 
-
-
 
 # How to compile this application
 
